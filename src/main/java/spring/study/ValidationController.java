@@ -1,17 +1,20 @@
 package spring.study;
 
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Validation;
+
 
 @Slf4j
 @RestController
+@AllArgsConstructor
 public class ValidationController {
+
+    private final ItemService itemService;
 
     @GetMapping("/validation")
     public Item validation(HttpServletRequest request) {
@@ -30,10 +33,17 @@ public class ValidationController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            return String.valueOf(bindingResult.getFieldError().getDefaultMessage());
+            return "errors";
         }
 
-        log.info(item.toString());
-        return "ok";
+//        Item item = new Item();
+//        item.setItemName(itemForm.getItemName());
+//        item.setPrice(itemForm.getPrice());
+//        item.setQuantity(item.getQuantity());
+
+        itemService.save(item);
+
+//        log.info(itemForm.toString());
+        return "saveOk";
     }
 }
