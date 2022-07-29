@@ -26,4 +26,7 @@ public class Item {
     @NotNull
     @Range(min = 1,max = 100)
     private Integer quantity;
+
+    public Item() {
+    }
 }
