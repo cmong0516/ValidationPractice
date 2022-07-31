@@ -80,4 +80,11 @@ public class ValidationController {
     public List<Item> findAll() {
         return itemService.findAll();
     }
+
+    @GetMapping("/delete")
+    public String delete(Long id) {
+        itemService.delete(id);
+
+        return "deleteOk";
+    }
 }

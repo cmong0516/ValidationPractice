@@ -45,4 +45,10 @@ public class ItemService {
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
+
+    public void delete(Long id) {
+        Optional<Item> byId = itemRepository.findById(id);
+        Item item = byId.get();
+        itemRepository.delete(item);
+    }
 }
