@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 
 @Slf4j
@@ -20,7 +21,7 @@ public class ValidationController {
     public Item validation(HttpServletRequest request) {
         log.info(request.getParameter("itemName"));
 
-        Item item = new Item();
+        Item item = new Item("Test", 10000, 15);
         item.setItemName(request.getParameter("itemName"));
         item.setPrice(Integer.valueOf(request.getParameter("price")));
         item.setQuantity(Integer.valueOf(request.getParameter("quantity")));
@@ -45,5 +46,18 @@ public class ValidationController {
 
 //        log.info(itemForm.toString());
         return "saveOk";
+    }
+
+    @GetMapping("/validation3")
+    public Optional<Item> validation3(Long id) {
+        return itemService.findById(id);
+    }
+
+    @GetMapping("/validation4")
+    public Optional<Item> findByItemName(@ModelAttribute Item item) {
+        log.info(item.getItemName());
+        Optional<Item> byItemName = itemService.findByItemName(item.getItemName());
+
+        return byItemName;
     }
 }
