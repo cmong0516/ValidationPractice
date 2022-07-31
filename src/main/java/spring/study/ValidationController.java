@@ -62,9 +62,14 @@ public class ValidationController {
     }
 
     @GetMapping("/updateitem")
-    public Item updateItem(Item item) {
-        Optional<Item> byItemName = itemService.findByItemName(item.getItemName());
-        log.info(byItemName.toString());
+    public Item updateItem(Long id) {
+        Optional<Item> byId = itemService.findById(id);
+        Item item = byId.get();
+        item.setItemName("updateItem");
+        item.setPrice(20000);
+        item.setQuantity(50);
+
+        itemService.save(item);
 
         return item;
 
