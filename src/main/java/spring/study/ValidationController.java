@@ -60,4 +60,13 @@ public class ValidationController {
 
         return byItemName;
     }
+
+    @GetMapping("/updateitem")
+    public Item updateItem(Item item) {
+        Optional<Item> byItemName = itemService.findByItemName(item.getItemName());
+        log.info(byItemName.toString());
+
+        return item;
+
+    }
 }

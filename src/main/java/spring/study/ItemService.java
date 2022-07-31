@@ -30,10 +30,15 @@ public class ItemService {
     public Optional<Item> findByItemName(String itemName) {
 
         log.info("itemServiceItemName = {}",itemName);
-        List<Item> itemNameList = em.createQuery("select m from Item m where m.itemName=:itemName", Item.class)
+        List<Item> itemNameList = em.createQuery("select i from Item i where i.itemName=:itemName", Item.class)
                 .setParameter("itemName", itemName)
                 .getResultList();
 
         return itemNameList.stream().findAny();
+    }
+
+    public Optional<Item> updateItem(Long id) {
+        Optional<Item> findById = itemRepository.findById(id);
+        return findById(id);
     }
 }
